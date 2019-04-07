@@ -6,15 +6,23 @@ export default function NavBar(props) {
     localStorage.removeItem('jwt');
     props.history.push('/');
   };
+  const token = localStorage.getItem('jwt');
   return (
     <nav className="nav-bar">
       <NavLink exact to="/">
         Home
       </NavLink>
-      <NavLink to="/signin">Sign In</NavLink>
-      <NavLink to="/signup">Sign Up</NavLink>
-      <NavLink to="/jokes">View Dad Jokes</NavLink>
-      <button onClick={handleLogout}>Logout</button>
+      {token ? (
+        <>
+          <NavLink to="/jokes">View Dad Jokes</NavLink>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <NavLink to="/signin">Sign In</NavLink>
+          <NavLink to="/signup">Sign Up</NavLink>
+        </>
+      )}
     </nav>
   );
 }
